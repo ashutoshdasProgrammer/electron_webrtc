@@ -3,6 +3,7 @@ let systemAudioStream = null;
  /**
      * - this function will return the system audio to us. 
      * - It will enable the loopback mode and capture the system audio.
+     * - it retuns a mediastream
      * @returns systemAudio
     */
     

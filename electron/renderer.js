@@ -1,6 +1,6 @@
 import startSystemAudioCapture from "./audio/capture.js";
 import analyseAudio from "./audio/analyser.js";
-
+import { createPeerConnection, addAudioStream, createOffer, setLocalOffer} from "./webrtc/peer.js";
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -61,7 +61,12 @@ document.addEventListener("DOMContentLoaded", () => {
     startButton.addEventListener('click', async () => {
         try {
             const stream = await startSystemAudioCapture();
-            analyseAudio(stream);
+            // analyseAudio(stream);
+            const peerConnection = createPeerConnection();
+            addAudioStream(stream);
+            const offer = await setLocalOffer();
+            console.log(offer);
+            console.log(peerConnection.getSenders());
         } catch (err) {
             console.log(err);
         }
