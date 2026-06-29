@@ -1,9 +1,9 @@
 import startSystemAudioCapture from "./audio/capture.js";
 import analyseAudio from "./audio/analyser.js";
-import { createPeerConnection, addAudioStream, createAndSetLocalOffer} from "./webrtc/peer.js";
+import { createPeerConnection, getPeerConnection, addAudioStream, createAndSetLocalOffer } from "./webrtc/peer.js";
+import { connectToSignalingServer, sendOffer, setPeerConnection} from "./webrtc/signalling.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-
 
     const stealth_mode = document.getElementById('stealth_mode_button');
     stealth_mode.addEventListener('click', async () => {
@@ -15,7 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
         Math.random().toString(36).substring(2, 15) +
         Math.random().toString(36).substring(2, 15);
 
-    const secureMobileEndpoint = `https://your-live-relay-server.com/mobile.html?room=${generatedSessionID}`
+    connectToSignalingServer(generatedSessionID);
+
+    const secureMobileEndpoint = `http://172.23.192.1:3000/mobile.html?room=${generatedSessionID}`
 
     // create a url.
     const canvasElement = document.getElementById('qr-canvas')
@@ -53,18 +55,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // -------------------------------------------------------------------------------------
 
-
-   
-
     const startButton = document.getElementById('start_stream');
 
     startButton.addEventListener('click', async () => {
         try {
             const stream = await startSystemAudioCapture();
             // analyseAudio(stream);
-            const peerConnection = createPeerConnection();
+            createPeerConnection();
+            const peerConnection = getPeerConnection();
             addAudioStream(peerConnection, stream);
             const offer = await createAndSetLocalOffer(peerConnection);
+            sendOffer(offer);
             console.log(offer);
             console.log(peerConnection.getSenders());
         } catch (err) {

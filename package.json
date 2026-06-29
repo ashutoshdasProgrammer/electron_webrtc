@@ -13,6 +13,8 @@
   "dependencies": {
     "electron": "^42.5.0",
     "electron-audio-loopback": "^1.0.6",
-    "qrcode": "^1.5.4"
+    "express": "^5.2.1",
+    "qrcode": "^1.5.4",
+    "ws": "^8.21.0"
   }
 }

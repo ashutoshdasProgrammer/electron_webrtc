@@ -6,12 +6,11 @@ contextBridge.exposeInMainWorld("stealth", {
 
 // exposing a function
 
-/*
 contextBridge.exposeInMainWorld('qr', {
     generate: async ( text, options) => {
         return ipcRenderer.invoke('generate-qr', text, options);
     }
-}); */
+}); 
 
 // for audio loopback
 contextBridge.exposeInMainWorld("loopback", {

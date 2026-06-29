@@ -1,7 +1,12 @@
-// let peerConnection = null;
+let peerConnection = null;
+
+import { sendICE } from "./signalling.js";
 
 export function createPeerConnection() {
-    const peerConnection = new RTCPeerConnection({
+    if(peerConnection){
+        return peerConnection;
+    }
+    peerConnection = new RTCPeerConnection({
         iceServers: [
             { urls: 'stun:stun.l.google.com:19302' }
         ]
@@ -9,6 +14,7 @@ export function createPeerConnection() {
 
     peerConnection.onicecandidate = (event) => {
         if (event.candidate) {
+            sendICE(event.candidate);
             console.log("ICE Candidate Found");
             console.log(event.candidate);
         } else {
@@ -75,3 +81,7 @@ export async function createAndSetLocalOffer(peerConnection) {
     return offer;
 }
 
+
+export function getPeerConnection(){
+    return peerConnection;
+}
