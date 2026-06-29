@@ -24,3 +24,5 @@ createOffer()
             │
             ▼
 SDP Offer
+
+now we are successfully gathering ICE
