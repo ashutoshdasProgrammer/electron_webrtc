@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     connectToSignalingServer(generatedSessionID);
 
-    const secureMobileEndpoint = `http://172.23.192.1:3000/mobile.html?room=${generatedSessionID}`
+    const secureMobileEndpoint = `http://10.85.79.242:3000/mobile-client/index.html?room=${generatedSessionID}`
 
     // create a url.
     const canvasElement = document.getElementById('qr-canvas')

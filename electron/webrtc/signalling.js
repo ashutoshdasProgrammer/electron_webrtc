@@ -4,11 +4,9 @@ import { getPeerConnection } from "./peer.js";
 let socket = null;
 let roomId = null;
 
-
-
 export function connectToSignalingServer(id) {
     roomId = id;
-    socket = new WebSocket("ws://localhost:3000");
+    socket = new WebSocket("ws://10.85.79.242:3000");
 
     socket.onopen = () => {
         console.log("Connected To Signaling Server");
@@ -16,7 +14,8 @@ export function connectToSignalingServer(id) {
             type: "join",
             room: roomId,
             role: "electron"
-        }))
+        }));
+ 
     };
 
     socket.onmessage = async (event) => {
